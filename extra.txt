@@ -1,0 +1,22 @@
+node server
+
+const express = require('express');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+const app = express();
+
+app.post('/api/create-app', upload.fields([
+  { name: 'logo', maxCount: 1 },
+  { name: 'icon', maxCount: 1 },
+  { name: 'splashScreen', maxCount: 1 }
+]), (req, res) => {
+  const formData = req.body;
+  const files = req.files;
+  console.log('Form data:', formData);
+  console.log('Uploaded files:', files);
+  
+  res.json({ message: 'App created successfully!' });
+});
+
+app.listen(3000, () => {
+  console.log('Server running on port 300

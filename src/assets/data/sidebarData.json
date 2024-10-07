@@ -7,6 +7,7 @@
     "path": "/all-app",
     "menu": "active",
     "submenu": [
+      { "name": "Create New", "path": "/create-new-app" },
       { "name": "App 1", "path": "/all-app/app1" },
       { "name": "App 2", "path": "/all-app/app2" },
       { "name": "App 3", "path": "/all-app/app3" }
