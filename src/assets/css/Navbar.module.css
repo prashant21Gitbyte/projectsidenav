@@ -1,0 +1,48 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem 2rem;
+    background-color: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .hamburger {
+    font-size: 1.5rem;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .navLinks {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    justify-content: center;
+    align-items:center;
+  }
+  
+  .navLinks li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .navLinks li a:hover {
+    color: #ff6347; 
+  }
+  
+  @media (max-width: 768px) {
+    .navLinks {
+      display: none;
+    }
+  
+    .hamburger {
+      display: block;
+    }
+  }
+  
