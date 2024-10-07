@@ -16,6 +16,13 @@
     pointer-events: none;
   }
 
+.menuItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
 .sidebar {
     position: fixed;
     top: 0;
@@ -70,6 +77,18 @@
     color: #ff6347;
     transform: translateX(5px);
   }
+
+.submenu {
+    max-height: 0;
+    overflow: hidden; 
+    transition: max-height 0.3s ease-in-out; 
+  }
+  
+
+  .submenuOpen {
+    max-height: 200px; 
+  }
+  
   
   @media (max-width: 768px) {
     .sidebar {
