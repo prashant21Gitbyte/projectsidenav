@@ -8,21 +8,32 @@ const mysql = require("mysql2");
 const app = express();
 const PORT = process.env.PORT || 5000;
 const corsOptions = {
-  origin: "*",
-  credentials: true,
+  origin: "http://172.16.1.70:3000",
+
+  // credentials: true,
 };
 
-// Middleware
 app.use(cors(corsOptions));
+
+// Middleware
+//app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //configuring the database
+/*
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
   database: "app_data",
+});
+*/
+const db = mysql.createConnection({
+  host: "103.171.45.175",
+  user: "newkabir_montra",
+  password: "]_nO-VH?f[Y_",
+  database: "newkabir_montra",
 });
 
 db.connect((err) => {
@@ -58,7 +69,8 @@ app.post(
     { name: "splashScreen", maxCount: 1 },
   ]),
   (req, res) => {
-    console.log("hello");
+    console.log("hello, did you made this request");
+
     const {
       appName,
       color,
@@ -117,7 +129,7 @@ app.post(
 
     db.query(query, values, (error, results) => {
       if (error) {
-        console.error("Error inserting data:", error);
+        console.log("Error inserting data:", error);
         return res
           .status(500)
           .json({ message: "Error saving data to the database." });
