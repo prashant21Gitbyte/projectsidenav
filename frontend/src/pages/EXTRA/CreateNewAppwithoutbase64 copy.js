@@ -20,65 +20,40 @@ const CreateNewApp = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setFormData({ ...formData, [name]: value });
   };
 
   const handleFileChange = (e) => {
     const { name } = e.target;
-    const file = e.target.files[0];
-    console.log(file);
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setFormData({ ...formData, [name]: reader.result.split(",")[1] }); // Save base64 string without metadata
-    };
-    if (file) {
-      reader.readAsDataURL(file); // Convert file to base64
-    }
+    setFormData({ ...formData, [name]: e.target.files[0] });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const {
-      appName,
-      logo,
-      icon,
-      color,
-      fontStyle,
-      fontSize,
-      splashScreen,
-      orgType,
-      orgUserName,
-      orgPassword,
-      orgClientID,
-      orgSecret,
-      approachType,
-    } = formData;
-
-    const payload = {
-      appName,
-      logoBase64: logo,
-      iconBase64: icon,
-      color,
-      fontStyle,
-      fontSize,
-      splashScreenBase64: splashScreen,
-      orgType,
-      orgUserName,
-      orgPassword,
-      orgClientID,
-      orgSecret,
-      approachType,
-    };
+    const data = new FormData();
+    Object.keys(formData).forEach((key) => {
+      data.append(key, formData[key]);
+    });
 
     try {
+      /*
+      for (let [key, value] of data.entries()) {
+        console.log(`${key}: ${value}`);
+      }*/
+      /* with files input print
+      for (let [key, value] of data.entries()) {
+        if (value instanceof File) {
+          console.log(`${key}: ${value.name} (${value.size} bytes)`);
+        } else {
+          console.log(`${key}: ${value}`);
+        }
+      }*/
+
       const response = await fetch("http://localhost:5000/api/create-app", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
+        body: data,
       });
       const result = await response.json();
       console.log(result);
