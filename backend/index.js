@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const appRoutes = require("./routes/app.routes");
+const authRoutes = require("./routes/auth.routes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,6 +18,7 @@ app.get("/", (req, res) => {
 
 // Use app routes
 app.use("/api", appRoutes);
+app.use("/api", authRoutes);
 
 // Start the server
 app.listen(PORT, "0.0.0.0", () => {
