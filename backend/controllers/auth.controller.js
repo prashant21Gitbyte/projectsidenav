@@ -1,6 +1,9 @@
 const db = require("../config/db.config");
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.login = (req, res) => {
+  //console.log(JWT_SECRET);
   const { username, password } = req.body;
 
   const query = `
@@ -18,8 +21,19 @@ exports.login = (req, res) => {
     if (results.length === 0) {
       return res.status(401).json({ message: "Invalid credentials." });
     }
+    const user = results[0];
 
-    // If credentials are correct, you can generate a token or return success.
-    res.json({ message: "Login successful!", user: results[0] });
+    // Generate a JWT token
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    res.json({
+      message: "Login successful!",
+      token,
+      user: { id: user.id, username: user.username },
+    });
   });
 };
