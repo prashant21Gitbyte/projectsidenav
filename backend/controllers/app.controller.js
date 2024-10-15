@@ -53,7 +53,6 @@ exports.createApp = (req, res) => {
 
 //update app
 
-// Function to update an app
 exports.updateApp = (req, res) => {
   const {
     appId,
@@ -112,7 +111,7 @@ exports.updateApp = (req, res) => {
 
 exports.getAppById = (req, res) => {
   const { id } = req.params;
-  console.log("this is reached here for id", id);
+  //console.log("this is reached here for id", id);
   const query = `SELECT * FROM apps WHERE id = ?`;
 
   db.query(query, [id], (error, results) => {
@@ -127,5 +126,29 @@ exports.getAppById = (req, res) => {
 
     // Returning the app data if found
     res.json({ data: results[0] });
+  });
+};
+
+//delete app
+
+exports.deleteApp = (req, res) => {
+  const { id } = req.params;
+  //console.log(id);
+
+  // SQL query to delete the app by ID
+  const query = `DELETE FROM apps WHERE id = ?`;
+
+  db.query(query, [id], (error, results) => {
+    if (error) {
+      console.log("Error deleting app:", error);
+      return res.status(500).json({ message: "Error deleting app." });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ message: "App not found." });
+    }
+
+    // If the deletion was successful
+    res.json({ message: "App deleted successfully." });
   });
 };

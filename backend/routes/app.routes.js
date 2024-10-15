@@ -8,5 +8,6 @@ const authMiddleware = require("../middleware/authMiddleware");
 router.post("/create-app", authMiddleware, appController.createApp);
 router.get("/get-app/:id", authMiddleware, appController.getAppById);
 router.put("/update-app", authMiddleware, appController.updateApp);
+router.delete("/delete-app/:id", authMiddleware, appController.deleteApp);
 
 module.exports = router;
