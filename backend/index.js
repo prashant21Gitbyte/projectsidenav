@@ -8,7 +8,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 require("dotenv").config();
+//console.log(process.env.JWT_SECRET);
 
+const corsOptions = {
+  origin: "http://172.16.1.193:3000",
+  credentials: true,
+};
 app.use(cors());
 app.use(express.json({ limit: "50mb" })); // Handle large base64-encoded data
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
@@ -23,6 +28,6 @@ app.use("/api", appRoutes);
 app.use("/api", authRoutes);
 
 // Start the server
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

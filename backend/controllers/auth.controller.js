@@ -1,8 +1,9 @@
 const db = require("../config/db.config");
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.login = (req, res) => {
+  console.log("someone tried to login");
+  const JWT_SECRET = process.env.JWT_SECRET;
   //console.log(JWT_SECRET);
   const { username, password } = req.body;
 
